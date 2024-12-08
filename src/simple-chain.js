@@ -12,9 +12,11 @@ const chainMaker = {
   },
   addLink(value) {
     if (value === null) {
-      this.result.push(`( null )`);               
+      this.result.push
+        (`( null )`);
     } else {
-      this.result.push(`( ${(value)} )`);
+      this.result.push
+        (`( ${(value)} )`);
     }
     return this;
   },
