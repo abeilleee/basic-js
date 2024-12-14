@@ -21,9 +21,9 @@ function deleteDigit(n) {
   let delNumber;
   let numbers = [];
   for (let i = 0; i < arr.length; i++) {
-    delNumber = arr.splice(i, 1).join('');
+    delNumber = arr.splice(i, 1).join('');    //удаляю элемент
     numbers.push(Number(arr.join('')));
-    arr.splice(i, 0, delNumber);
+    arr.splice(i, 0, delNumber);              //добавляю элемент обратно в массив
   }
   return Math.max(...numbers);
 }
