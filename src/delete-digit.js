@@ -22,7 +22,6 @@ function deleteDigit(n) {
   let numbers = [];
   for (let i = 0; i < arr.length; i++) {
     delNumber = arr.splice(i, 1).join('');
-    console.log(`arr: ${arr}`)
     numbers.push(Number(arr.join('')));
     arr.splice(i, 0, delNumber);
   }
