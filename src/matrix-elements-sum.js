@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Given matrix, a rectangular matrix of integers,
@@ -20,13 +20,14 @@ function getMatrixElementsSum(matrix) {
   let count = 0;
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      if ((i - 1 < 0) || matrix[i - 1][j] !== 0) {
+      if (i - 1 < 0 || matrix[i - 1][j] !== 0) {
         count += matrix[i][j];
       }
     }
-  } return count;
+  }
+  return count;
 }
 
 module.exports = {
-  getMatrixElementsSum
+  getMatrixElementsSum,
 };

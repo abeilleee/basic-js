@@ -1,8 +1,8 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require('../lib');
 
 /**
  * Implement chainMaker object according to task description
- * 
+ *
  */
 const chainMaker = {
   result: [],
@@ -42,5 +42,5 @@ const chainMaker = {
 };
 
 module.exports = {
-  chainMaker
+  chainMaker,
 };

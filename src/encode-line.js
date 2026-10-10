@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Given a string, return its encoding version.
@@ -12,7 +12,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function encodeLine(str) {
   let count = 1;
-  let result = '';
+  let result = "";
 
   for (let i = 1; i <= str.length; i++) {
     if (str[i] === str[i - 1]) {
@@ -20,7 +20,8 @@ function encodeLine(str) {
     } else if (str[i] !== str[i - 1]) {
       if (count === 1) {
         result += str[i - 1];
-      } if (count > 1) {
+      }
+      if (count > 1) {
         result += count + str[i - 1];
       }
       count = 1;
@@ -30,5 +31,5 @@ function encodeLine(str) {
 }
 
 module.exports = {
-  encodeLine
+  encodeLine,
 };

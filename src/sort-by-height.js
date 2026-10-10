@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Given an array with heights, sort them except if the value is -1.
@@ -14,10 +14,10 @@ const { NotImplementedError } = require('../extensions/index.js');
 function sortByHeight(arr) {
   let sortArr = arr.filter((elem) => elem !== -1).sort((a, b) => a - b); //сортирую массив по возрастанию, удаляя из него -1
   let idx = 0;
-  let result = arr.map((elem) => elem === -1 ? -1 : sortArr[idx++]); //вставляю числа из sortArr, сохраняя -1 на тех же местах
+  let result = arr.map((elem) => (elem === -1 ? -1 : sortArr[idx++])); //вставляю числа из sortArr, сохраняя -1 на тех же местах
   return result;
 }
 
 module.exports = {
-  sortByHeight
+  sortByHeight,
 };

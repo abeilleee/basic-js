@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Given an array of domains, return the object with the appearances of the DNS.
@@ -26,10 +26,10 @@ function getDNSStats(domains) {
   let resObj = {};
 
   for (let i of domains) {
-    let arr = (i.split('.').reverse());
-    let current = '';
+    let arr = i.split(".").reverse();
+    let current = "";
 
-    arr.forEach(elem => {
+    arr.forEach((elem) => {
       current = `${current}.${elem}`;
       if (!resObj[current]) {
         resObj[current] = 0;
@@ -41,5 +41,5 @@ function getDNSStats(domains) {
 }
 
 module.exports = {
-  getDNSStats
+  getDNSStats,
 };

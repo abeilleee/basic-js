@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../lib");
 
 /**
  * The MAC-48 address is six groups of two hexadecimal digits (0 to 9 or A to F),
@@ -15,10 +15,10 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function isMAC48Address(n) {
-  const arr = n.split('-');
+  const arr = n.split("-");
   for (let i of arr) {
     for (let j of i) {
-      if (('0' <= j && j <= '9') || ('A' <= j && j <= 'F')) {
+      if (("0" <= j && j <= "9") || ("A" <= j && j <= "F")) {
         return true;
       } else {
         return false;
@@ -26,6 +26,7 @@ function isMAC48Address(n) {
     }
   }
 }
+
 module.exports = {
-  isMAC48Address
+  isMAC48Address,
 };
