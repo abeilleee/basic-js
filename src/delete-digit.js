@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * Given some integer, find the maximal number you can obtain
  * by deleting exactly one digit of the given number.
@@ -12,20 +10,16 @@ const { NotImplementedError } = require("../lib");
  *
  */
 function deleteDigit(n) {
-  let nStr = String(n);
-  let arr = [];
-  for (i of nStr) {
-    arr.push(i);
-  }
+  const digits = String(n).split("");
 
-  let delNumber;
-  let numbers = [];
-  for (let i = 0; i < arr.length; i++) {
-    delNumber = arr.splice(i, 1).join(""); //удаляю элемент
-    numbers.push(Number(arr.join("")));
-    arr.splice(i, 0, delNumber); //добавляю элемент обратно в массив
-  }
-  return Math.max(...numbers);
+  const res = digits.map((_, idx) => {
+    const copy = [...digits];
+    copy.splice(idx, 1);
+
+    return Number(copy.join(""));
+  });
+
+  return Math.max(...res);
 }
 
 module.exports = {

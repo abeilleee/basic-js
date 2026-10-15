@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../lib');
-
 /**
  * There's a list of file, since two files cannot have equal names,
  * the one which comes later will have a suffix (k),
@@ -16,22 +14,25 @@ const { NotImplementedError } = require('../lib');
  *
  */
 function renameFiles(names) {
-  let result = [];
+  return Array.from(
+    names.reduce((acc, name) => {
+      if (acc.has(name)) {
+        let k = 1;
 
-  for (let i = 0; i < names.length; i++) {
-    if (!result.includes(names[i])) {
-      result.push(names[i]);
-    } else if (result.includes(names[i])) {
-      for (let j = 1; j < names.length; j++) {
-        if (!result.includes(`${names[i]}(${j})`)) {
-          result.push(`${names[i]}(${j})`);
-          break;
+        while (acc.has(`${name}(${k})`)) {
+          k++;
         }
+
+        acc.add(`${name}(${k})`);
+      } else {
+        acc.add(name);
       }
-    }
-  } return result;
+
+      return acc;
+    }, new Set()),
+  );
 }
 
 module.exports = {
-  renameFiles
+  renameFiles,
 };

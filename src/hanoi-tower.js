@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../lib');
-
 /**
  * Calculate turns number and time (in seconds) required
  * to solve puzzle
@@ -15,16 +13,15 @@ const { NotImplementedError } = require('../lib');
  *
  */
 function calculateHanoi(disksNumber, turnsSpeed) {
-  const turns = Math.pow(2, disksNumber) - 1; // вычисляю минимальное количество оборотов
-  const turnsPerSecond = turnsSpeed / 3600; // перевожу обороты за час в обороты за секунду
-  const seconds = Math.floor(turns / turnsPerSecond); // вычисляю время в секундах
+  const turns = 2 ** disksNumber - 1;
+  const seconds = Math.floor((turns / turnsSpeed) * 3600);
 
   return {
-      turns: turns,
-      seconds: seconds
+    turns,
+    seconds,
   };
 }
 
 module.exports = {
-  calculateHanoi
+  calculateHanoi,
 };

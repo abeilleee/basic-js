@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * The MAC-48 address is six groups of two hexadecimal digits (0 to 9 or A to F),
  * separated by hyphens.
@@ -15,16 +13,7 @@ const { NotImplementedError } = require("../lib");
  *
  */
 function isMAC48Address(n) {
-  const arr = n.split("-");
-  for (let i of arr) {
-    for (let j of i) {
-      if (("0" <= j && j <= "9") || ("A" <= j && j <= "F")) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
+  return /^([0-9A-F]{2}-){5}[0-9A-F]{2}$/.test(n);
 }
 
 module.exports = {

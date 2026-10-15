@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * Implement class VigenereCipheringMachine that allows us to create
  * direct and reverse ciphering machines according to task description
@@ -24,80 +22,47 @@ class VigenereCipheringMachine {
     this.direct = direct;
   }
 
-  encrypt(message, key) {
-    if (typeof message !== "string" || typeof key !== "string") {
-      throw new Error("Incorrect arguments!");
-    }
-
-    let alphabet = "abcdefghijklmnopqrstuvwxyz";
-    let resultPositions = []; //индексы для результа (encryptedMessage)
-    let idx = 0;
-
-    for (let i = 0; i < message.length; i++) {
-      if (/[A-Z]/i.test(message[i])) {
-        //проверка является ли элемент строки буквой
-        resultPositions.push(
-          alphabet.indexOf(message[i].toLowerCase()) +
-            (alphabet.indexOf(key[idx % key.length].toLowerCase()) % 26),
-        );
-      } else {
-        resultPositions.push(message[i]);
-        idx--;
-      }
-      idx++;
-    }
-
-    let encryptedMessage = "";
-    //получение encryptedMessage по resultPositions:
-
-    for (let i = 0; i < resultPositions.length; i++) {
-      if (typeof resultPositions[i] === "number") {
-        encryptedMessage += alphabet[resultPositions[i] % 26].toUpperCase();
-      } else {
-        encryptedMessage += resultPositions[i];
-      }
-    }
-
-    return this.direct
-      ? encryptedMessage
-      : encryptedMessage.split("").reverse().join("");
+  charToNum(char) {
+    return char.charCodeAt(0) - 65;
   }
 
-  decrypt(encryptedMessage, key) {
-    if (typeof encryptedMessage !== "string" || typeof key !== "string") {
+  numToChar(num) {
+    return String.fromCharCode(num + 65);
+  }
+
+  process(message, key, direction) {
+    if (!message || !key) {
       throw new Error("Incorrect arguments!");
     }
 
-    let alphabet = "abcdefghijklmnopqrstuvwxyz";
-    let resultPositions1 = [];
-    let idx1 = 0;
+    const targetMsg = message.toUpperCase();
+    const targetKey = key.toUpperCase();
+    let shift = 0;
 
-    for (let i = 0; i < encryptedMessage.length; i++) {
-      if (/[A-Z]/i.test(encryptedMessage[i])) {
-        resultPositions1.push(
-          alphabet.indexOf(encryptedMessage[i].toLowerCase()) -
-            alphabet.indexOf(key[idx1 % key.length].toLowerCase()) +
-            26,
-        ) % 26;
+    const res = targetMsg.split("").reduce((acc, char) => {
+      if (char >= "A" && char <= "Z") {
+        const numChar = this.charToNum(char);
+        const numKey = this.charToNum(targetKey[shift % targetKey.length]);
+        const newNum = (numChar + direction * numKey + 26) % 26;
+
+        acc += this.numToChar(newNum);
+        shift++;
       } else {
-        resultPositions1.push(encryptedMessage[i]);
-        idx1--;
+        acc += char;
       }
-      idx1++;
-    }
 
-    let decryptedMessage = "";
+      return acc;
+    }, "");
 
-    for (let i = 0; i < resultPositions1.length; i++) {
-      if (typeof resultPositions1[i] === "number") {
-        decryptedMessage += alphabet[resultPositions1[i] % 26].toUpperCase();
-      } else {
-        decryptedMessage += resultPositions1[i];
-      }
-    }
-    return this.direct
-      ? decryptedMessage
-      : decryptedMessage.split("").reverse().join("");
+    return this.direct ? res : res.split("").reverse().join("");
+  }
+
+  encrypt(message, key) {
+    return this.process(message, key, 1);
+  }
+
+  decrypt(message, key) {
+    return this.process(message, key, -1);
   }
 }
 

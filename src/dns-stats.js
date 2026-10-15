@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * Given an array of domains, return the object with the appearances of the DNS.
  *
@@ -23,21 +21,18 @@ const { NotImplementedError } = require("../lib");
  *
  */
 function getDNSStats(domains) {
-  let resObj = {};
+  const domainsMap = domains.reduce((acc, domain) => {
+    const domainParts = domain.split(".").reverse();
 
-  for (let i of domains) {
-    let arr = i.split(".").reverse();
-    let current = "";
-
-    arr.forEach((elem) => {
-      current = `${current}.${elem}`;
-      if (!resObj[current]) {
-        resObj[current] = 0;
-      }
-      resObj[current]++;
+    domainParts.forEach((_, idx) => {
+      const key = `.${domainParts.slice(0, idx + 1).join(".")}`;
+      acc.set(key, acc.get(key) + 1 || 1);
     });
-  }
-  return resObj;
+
+    return acc;
+  }, new Map());
+
+  return Object.fromEntries(domainsMap);
 }
 
 module.exports = {

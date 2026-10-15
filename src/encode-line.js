@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * Given a string, return its encoding version.
  *
@@ -10,26 +8,16 @@ const { NotImplementedError } = require("../lib");
  * For aabbbc should return 2a3bc
  *
  */
-function encodeLine(str) {
-  let count = 1;
-  let result = "";
 
-  for (let i = 1; i <= str.length; i++) {
-    if (str[i] === str[i - 1]) {
-      count++;
-    } else if (str[i] !== str[i - 1]) {
-      if (count === 1) {
-        result += str[i - 1];
-      }
-      if (count > 1) {
-        result += count + str[i - 1];
-      }
-      count = 1;
-    }
-  }
-  return result;
+function encodeLine(str) {
+  return str.replace(
+    /(.)\1*/g,
+    (match, char) => (match.length > 1 ? match.length : "") + char,
+  );
 }
 
 module.exports = {
   encodeLine,
 };
+
+encodeLine("aabbbc");

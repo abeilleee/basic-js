@@ -1,44 +1,47 @@
-const { NotImplementedError } = require('../lib');
-
 /**
  * Implement chainMaker object according to task description
  *
  */
+
+let chain = [];
+
 const chainMaker = {
   result: [],
 
   getLength() {
-    return this.result.length;
+    return chain.length;
   },
   addLink(value) {
-    if (value === null) {
-      this.result.push
-        (`( null )`);
-    } else {
-      this.result.push
-        (`( ${(value)} )`);
-    }
+    chain.push(`( ${value} )`);
+
     return this;
   },
   removeLink(position) {
-    if (position < 1 || typeof position !== 'number' || position > this.result.length) {
-      this.result = [];
+    if (
+      typeof position !== "number" ||
+      !Number.isInteger(position) ||
+      position < 0 ||
+      position >= chain.length
+    ) {
+      chain = [];
       throw new Error("You can't remove incorrect link!");
-    } else {
-      this.result.splice(position - 1, 1);
-      return this;
     }
+
+    chain.splice(position - 1, 1);
+
+    return this;
   },
   reverseChain() {
-    this.result.reverse();
-    return this;
+    chain.reverse();
 
+    return this;
   },
   finishChain() {
-    const result1 = this.result.join('~~');
-    this.result = [];
-    return result1;
-  }
+    const str = chain.join("~~");
+    chain = [];
+
+    return str;
+  },
 };
 
 module.exports = {

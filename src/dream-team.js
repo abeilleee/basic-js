@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../lib');
-
 /**
  * Create name of dream team based on the names of its members
  *
@@ -17,11 +15,15 @@ function createDreamTeam(members) {
   if (!Array.isArray(members)) {
     return false;
   }
-  let arr = members.filter(elem => typeof elem === 'string')
-  let result = arr.map(elem => elem.trim()[0].toUpperCase()).sort().join('');
-  return result;
+
+  const letters = members
+    .filter((name) => typeof name === "string")
+    .map((name) => name.trim()[0].toUpperCase() ?? "")
+    .sort();
+
+  return letters.join("");
 }
 
 module.exports = {
-  createDreamTeam
+  createDreamTeam,
 };

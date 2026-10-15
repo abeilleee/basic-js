@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * Implement class DepthCalculator with method calculateDepth
  * that calculates depth of nested array
@@ -14,14 +12,11 @@ const { NotImplementedError } = require("../lib");
  */
 class DepthCalculator {
   calculateDepth(arr) {
-    let count = 1;
-    for (let i of arr) {
-      if (Array.isArray(i)) {
-        const res = this.calculateDepth(i) + 1;
-        count = Math.max(res, count);
-      }
+    if (!Array.isArray(arr)) {
+      return 0;
     }
-    return count;
+
+    return 1 + Math.max(0, ...arr.map((value) => this.calculateDepth(value)));
   }
 }
 

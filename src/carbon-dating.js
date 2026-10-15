@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../lib');
-
 const MODERN_ACTIVITY = 15;
 const HALF_LIFE_PERIOD = 5730;
 
@@ -18,15 +16,23 @@ const HALF_LIFE_PERIOD = 5730;
  *
  */
 function dateSample(sampleActivity) {
-  let result;
-  if (typeof sampleActivity !== 'string' || !+sampleActivity || +sampleActivity < 0 || +sampleActivity > MODERN_ACTIVITY) {
-    result = false;
-  } else {
-    result = Math.ceil(Math.log(MODERN_ACTIVITY / +(sampleActivity)) / (0.693 / HALF_LIFE_PERIOD));
+  const activity = Number(sampleActivity);
+
+  if (
+    typeof sampleActivity !== "string" ||
+    !Number.isFinite(activity) ||
+    activity <= 0 ||
+    activity >= MODERN_ACTIVITY
+  ) {
+    return false;
   }
-  return result;
+
+  return Math.ceil(
+    Number(HALF_LIFE_PERIOD * Math.log(MODERN_ACTIVITY / sampleActivity)) /
+      Math.log(2),
+  );
 }
 
 module.exports = {
-  dateSample
+  dateSample,
 };
