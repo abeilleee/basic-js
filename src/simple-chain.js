@@ -6,6 +6,8 @@
 let chain = [];
 
 const chainMaker = {
+  result: [],
+
   getLength() {
     return chain.length;
   },

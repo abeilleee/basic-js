@@ -1,5 +1,3 @@
-const { NotImplementedError } = require("../lib");
-
 /**
  * Create transformed array based on the control sequences that original
  * array contains
@@ -51,7 +49,7 @@ function transform(arr) {
       if (i - 1 >= 0 && !prevDiscarded) {
         result.pop();
       }
-      
+
       prevDiscarded = false;
 
       continue;
